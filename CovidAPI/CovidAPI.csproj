@@ -160,6 +160,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CountryData.cs" />
+    <Compile Include="Models\CountryDetails.cs" />
     <Compile Include="Models\CountryStatus.cs" />
     <Compile Include="Models\CountryTimeline.cs" />
     <Compile Include="Models\CovidDbContext.cs" />

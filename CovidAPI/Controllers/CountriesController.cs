@@ -25,10 +25,32 @@ namespace CovidAPI.Controllers
             return countriesData;
         }
 
-        // GET api/countries/id
-        public string Get(int id)
+        // GET api/countries/slug
+        public CountryDetails Get(string slug)
         {
-            return "value";
+            CountryDetails countryDetailsObj = new CountryDetails();
+
+            var countryData = db.CountryData.FirstOrDefault(c=> c.Slug == slug);
+            
+            countryDetailsObj.CountryCode = countryData.CountryCode;
+            countryDetailsObj.Name = countryData.Country;
+            countryDetailsObj.LastUpdate = countryData.LastUpdate;
+            countryDetailsObj.NewCases = countryData.NewConfirmed;
+            countryDetailsObj.NewDeaths = countryData.NewDeaths;
+            countryDetailsObj.NewRecovered = countryData.NewRecovered;
+            countryDetailsObj.TotalCases = countryData.TotalConfirmed;
+            countryDetailsObj.TotalDeaths = countryData.TotalDeaths;
+            countryDetailsObj.TotalRecovered = countryData.TotalRecovered;
+
+            var growthRate = db.GrowthRates.FirstOrDefault(c => c.Country == countryDetailsObj.CountryCode);
+
+            countryDetailsObj.NewCasePercentage = growthRate.NewCasePercentage;
+            countryDetailsObj.NewDeathPercentage = growthRate.NewDeathPercentage;
+            countryDetailsObj.NewRecoveredPercentage = growthRate.NewRecoveredPercentage;
+
+            countryDetailsObj.countryTimelineData = db.CountryTimeLines.Where(c => c.CountryCode == countryDetailsObj.CountryCode).ToList();
+
+            return countryDetailsObj;
         }
 
     }

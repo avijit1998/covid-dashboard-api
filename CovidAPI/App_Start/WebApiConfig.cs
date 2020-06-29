@@ -18,8 +18,8 @@ namespace CovidAPI
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{slug}",
+                defaults: new { slug = RouteParameter.Optional }
             );
 
             EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
